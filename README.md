@@ -1,3 +1,3 @@
 <h2>UncleBarany</h2>
 
-<p>UncleBarany is a JavaScript module that generates HTML from CSS selectors.</p>
+<p>UncleBarany is a DOM builder that generates HTML from CSS syntax.</p>
