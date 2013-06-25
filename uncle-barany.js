@@ -14,11 +14,10 @@
 		, match = {
 			ID: /#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/
 			, CLASS: /\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/
-			, NAME: /\[name=['"]*((?:[\w\u00c0-\uFFFF\-]|\\.)+)['"]*\]/
 			, ATTR: /\[\s*((?:[\w\u00c0-\uFFFF\-]|\\.)+)\s*(?:(\S?=)\s*(?:(['"])(.*?)\3|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/
-			, TAG: /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/g
-			, CLONE: /\:(\d+)(?=$|[:[])/
+			, TAG: /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/
 			, COMBINATOR: /^[>~+]$/
+			, HTML: /innerHTML|innerhtml|HTML|html/
 		}
 		
 		/**
@@ -79,7 +78,7 @@
 				attrSelector = parts_value.match(cloneRegex(match.ATTR));
 
 				while ((temp = attrSelector.shift())) {
-					if (/innerHTML|innerhtml|html|HTML/.test(temp.match(match.ATTR)[1])) {
+					if (match.HTML.test(temp.match(match.ATTR)[1])) {
 						elem.innerHTML =  temp.match(match.ATTR)[4];
 
 						continue;
