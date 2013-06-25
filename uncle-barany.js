@@ -57,7 +57,7 @@
 		}
 		
 		/**
-		 * Sets an attribute (class|id) on a DOM element and/or injects innerHTML into a specific DOM element.
+		 * Sets an attribute (class|id|attr) on a DOM element and/or injects innerHTML into a specific DOM element.
 		 * @param {array} parts
 		 * @param {number} ind
 		 * @returns {htmlelement} 
@@ -65,21 +65,33 @@
 		 */
 		, setAttr = function(parts, ind) {
 			var parts_value = (match.COMBINATOR.test(parts[ind]) ? parts[ind - 1] : parts[ind])
-				, elem = doc.createElement(parts_value.match(match.TAG)[0]);
+				, elem = doc.createElement(parts_value.match(match.TAG)[0])
+				, attrSelector
+				, temp;
 
 			if (match.CLASS.exec(parts_value)) {
 				elem = setClass(elem, parts_value.match(cloneRegex(match.CLASS)).join(" ").replace(/\./g, ""));
-			} 
+			}
 			if (match.ID.exec(parts_value)) {
 				elem = setId(elem, parts_value.match(match.ID)[1]);
 			}
 			if (match.ATTR.exec(parts_value)) {
-				elem[parts_value.match(match.ATTR)[1]] =  parts_value.match(match.ATTR)[4];
+				attrSelector = parts_value.match(cloneRegex(match.ATTR));
+
+				while ((temp = attrSelector.shift())) {
+					if (/innerHTML|innerhtml|html|HTML/.test(temp.match(match.ATTR)[1])) {
+						elem.innerHTML =  temp.match(match.ATTR)[4];
+
+						continue;
+					}
+
+					elem.setAttribute(temp.match(match.ATTR)[1], temp.match(match.ATTR)[4]);
+				}
 			}
-			
+
 			return elem;
 		}
-		
+
 		/**
 		 * A constructor function which creates a DOM element, and additionally, returns a new constructor function (Init).
 		 * @constructor
