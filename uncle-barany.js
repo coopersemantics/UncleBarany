@@ -63,19 +63,19 @@
 		 * @todo Set attributes on DOM elements and pull out innerHTML into a separate thing.
 		 */
 		, setAttr = function(parts, ind) {
-			var parts_value = (match.COMBINATOR.test(parts[ind]) ? parts[ind - 1] : parts[ind])
-				, elem = doc.createElement(parts_value.match(match.TAG)[0])
+			var partsValue = (match.COMBINATOR.test(parts[ind]) ? parts[ind - 1] : parts[ind])
+				, elem = doc.createElement(partsValue.match(match.TAG)[0])
 				, attrSelector
 				, temp;
 
-			if (match.CLASS.exec(parts_value)) {
-				elem = setClass(elem, parts_value.match(cloneRegex(match.CLASS)).join(" ").replace(/\./g, ""));
+			if (match.CLASS.exec(partsValue)) {
+				elem = setClass(elem, partsValue.match(cloneRegex(match.CLASS)).join(" ").replace(/\./g, ""));
 			}
-			if (match.ID.exec(parts_value)) {
-				elem = setId(elem, parts_value.match(match.ID)[1]);
+			if (match.ID.exec(partsValue)) {
+				elem = setId(elem, partsValue.match(match.ID)[1]);
 			}
-			if (match.ATTR.exec(parts_value)) {
-				attrSelector = parts_value.match(cloneRegex(match.ATTR));
+			if (match.ATTR.exec(partsValue)) {
+				attrSelector = partsValue.match(cloneRegex(match.ATTR));
 
 				while ((temp = attrSelector.shift())) {
 					if (match.HTML.test(temp.match(match.ATTR)[1])) {
@@ -98,7 +98,8 @@
 		 * @returns {object}
 		 */
 		, UncleBarany = function(selector) {
-			var parts = [], c;
+			var parts = []
+				, c;
 
 			while ((c = chunker.exec(selector)) !== null) {
 				parts.push(c[1]);
