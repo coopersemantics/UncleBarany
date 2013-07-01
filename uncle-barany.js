@@ -3,7 +3,7 @@
  * https://github.com/coopersemantics/UncleBarany
  * MIT License
  ********************************************************************************************************************/
-(function(exports, doc) {
+(function(globals, doc) {
 	
 	"use strict";
 	
@@ -64,7 +64,8 @@
 		 */
 		, setAttr = function(parts, ind) {
 			var partsValue = (match.COMBINATOR.test(parts[ind]) ? parts[ind - 1] : parts[ind])
-				, elem = doc.createElement(partsValue.match(match.TAG)[0])
+				, typeSelector = partsValue.match(match.TAG)
+				, elem = doc.createElement(typeSelector && typeSelector[0] || "div")
 				, attrSelector
 				, temp;
 
@@ -178,6 +179,6 @@
 	 * UncleBarany is available to the window scope.
 	 * @public
 	 */
-	exports.UncleBarany = UncleBarany;
+	globals.UncleBarany = UncleBarany;
 	
 })(this, document);
