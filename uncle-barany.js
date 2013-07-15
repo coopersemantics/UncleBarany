@@ -123,7 +123,7 @@
 			
 			self.elem = elem;
 
-			while (ind++, ind < len) {
+			while (++ind < len) {
 				appendElement.apply(self, [parts, ind]);
 			}
 
