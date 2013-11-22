@@ -17,7 +17,7 @@
 			, ATTR: /\[\s*((?:[\w\u00c0-\uFFFF\-]|\\.)+)\s*(?:(\S?=)\s*(?:(['"])(.*?)\3|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/
 			, TAG: /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/
 			, COMBINATOR: /^[>~+]$/
-			, HTML: /innerHTML|innerhtml|HTML|html/
+			, HTML: /(innerHTML|innerhtml|HTML|html)/
 		}
 		
 		/**
